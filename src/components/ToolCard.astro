@@ -1,0 +1,97 @@
+---
+import type { ToolData } from '../lib/content-loader';
+
+interface Props {
+  tool: ToolData;
+}
+
+const { tool } = Astro.props;
+---
+
+<div class="bg-stl-surface border border-stl-border rounded-lg p-6">
+  <div class="flex items-start justify-between mb-3">
+    <h3 class="text-lg font-semibold text-stl-text">{tool.name}</h3>
+    {tool.version && (
+      <span class="text-xs bg-stl-accent/20 text-stl-accent px-2 py-1 rounded font-mono">
+        v{tool.version}
+      </span>
+    )}
+  </div>
+
+  <p class="text-stl-muted text-sm leading-relaxed mb-4">{tool.description}</p>
+
+  {/* Stats */}
+  {(tool.tests || tool.loc || tool.modules) && (
+    <div class="flex flex-wrap gap-3 mb-4">
+      {tool.tests && <span class="text-xs text-stl-green font-mono">{tool.tests}</span>}
+      {tool.loc && <span class="text-xs text-stl-accent2 font-mono">{tool.loc}</span>}
+      {tool.modules && <span class="text-xs text-stl-muted font-mono">{tool.modules}</span>}
+    </div>
+  )}
+
+  {/* Features */}
+  {tool.features.length > 0 && (
+    <div class="mb-4">
+      <h4 class="text-xs text-stl-muted uppercase tracking-wide mb-2">Capabilities</h4>
+      <div class="space-y-1">
+        {tool.features.map(f => (
+          <div class="text-xs">
+            <span class="text-stl-text">{f.capability}</span>
+            {f.api && <code class="text-stl-accent ml-2">{f.api}</code>}
+          </div>
+        ))}
+      </div>
+    </div>
+  )}
+
+  {/* Commands */}
+  {tool.commands && tool.commands.length > 0 && (
+    <div class="mb-4">
+      <h4 class="text-xs text-stl-muted uppercase tracking-wide mb-2">Commands</h4>
+      <div class="space-y-1">
+        {tool.commands.map(c => (
+          <div class="text-xs">
+            <code class="text-stl-accent">{c.usage}</code>
+            <span class="text-stl-muted ml-2">— {c.description}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  )}
+
+  {/* MCP Tools */}
+  {tool.mcpTools && tool.mcpTools.length > 0 && (
+    <div class="mb-4">
+      <h4 class="text-xs text-stl-muted uppercase tracking-wide mb-2">MCP Tools</h4>
+      <div class="space-y-1">
+        {tool.mcpTools.map(t => (
+          <div class="text-xs text-stl-text">{t.description}</div>
+        ))}
+      </div>
+    </div>
+  )}
+
+  {/* Schemas */}
+  {tool.schemas && tool.schemas.length > 0 && (
+    <div class="mb-4">
+      <h4 class="text-xs text-stl-muted uppercase tracking-wide mb-2">Domain Schemas</h4>
+      <div class="flex flex-wrap gap-2">
+        {tool.schemas.map(s => (
+          <span class="text-xs bg-stl-bg px-2 py-1 rounded text-stl-muted">{s.domain}</span>
+        ))}
+      </div>
+    </div>
+  )}
+
+  {/* Install + Link */}
+  <div class="flex items-center gap-4 mt-4 pt-4 border-t border-stl-border">
+    {tool.install && (
+      <code class="text-xs text-stl-green bg-stl-bg px-2 py-1 rounded">{tool.install}</code>
+    )}
+    {tool.href && (
+      <a href={tool.href} target="_blank" rel="noopener" class="text-xs text-stl-accent hover:underline ml-auto">
+        View on GitHub &rarr;
+      </a>
+    )}
+  </div>
+</div>

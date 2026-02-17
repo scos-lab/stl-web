@@ -1,0 +1,32 @@
+---
+import type { ComparisonRow } from '../lib/content-loader';
+
+interface Props {
+  rows: ComparisonRow[];
+}
+
+const { rows } = Astro.props;
+
+const labels = ['Target', 'Core Metric', 'Method', 'Format', 'Goal', 'Trust Signal', 'Conversion'];
+---
+
+<div class="overflow-x-auto">
+  <table class="w-full border-collapse">
+    <thead>
+      <tr>
+        <th class="text-left text-xs text-stl-muted uppercase tracking-wide p-3 border-b border-stl-border"></th>
+        <th class="text-left text-xs text-stl-muted uppercase tracking-wide p-3 border-b border-stl-border">SEO</th>
+        <th class="text-left text-xs text-stl-accent uppercase tracking-wide p-3 border-b border-stl-border">ASO</th>
+      </tr>
+    </thead>
+    <tbody>
+      {rows.map((row, i) => (
+        <tr class="border-b border-stl-border/50 hover:bg-stl-surface/50">
+          <td class="p-3 text-sm text-stl-muted font-medium">{labels[i] || ''}</td>
+          <td class="p-3 text-sm text-stl-text">{row.seo}</td>
+          <td class="p-3 text-sm text-stl-accent">{row.aso}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>

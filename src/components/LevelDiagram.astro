@@ -1,0 +1,27 @@
+---
+import type { LevelData } from '../lib/content-loader';
+
+interface Props {
+  levels: LevelData[];
+}
+
+const { levels } = Astro.props;
+---
+
+<div class="space-y-3">
+  {levels.map((level) => (
+    <div class={`flex items-start gap-4 p-4 rounded-lg border ${level.order === 4 ? 'border-stl-accent bg-stl-accent/5' : 'border-stl-border bg-stl-surface'}`}>
+      <div class={`text-xs font-mono font-bold px-2 py-1 rounded ${level.order === 4 ? 'bg-stl-accent text-stl-bg' : 'bg-stl-border text-stl-muted'}`}>
+        L{level.order}
+      </div>
+      <div class="flex-1">
+        <div class="flex items-center gap-2 mb-1">
+          <span class="text-sm font-semibold text-stl-text">{level.name}</span>
+          <span class="text-xs text-stl-muted">({level.year})</span>
+        </div>
+        <div class="text-xs text-stl-muted mb-1">{level.layer}</div>
+        <div class="text-sm text-stl-muted">{level.description}</div>
+      </div>
+    </div>
+  ))}
+</div>

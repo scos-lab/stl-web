@@ -1,0 +1,25 @@
+---
+import type { FAQItem } from '../lib/content-loader';
+
+interface Props {
+  items: FAQItem[];
+}
+
+const { items } = Astro.props;
+---
+
+<div class="space-y-4">
+  {items.map((item, i) => (
+    <details class="bg-stl-surface border border-stl-border rounded-lg group">
+      <summary class="cursor-pointer p-4 text-stl-text font-medium hover:text-stl-accent transition-colors list-none flex items-center justify-between">
+        <span>{item.question}</span>
+        <svg class="w-5 h-5 text-stl-muted group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+        </svg>
+      </summary>
+      <div class="px-4 pb-4 text-stl-muted text-sm leading-relaxed">
+        {item.answer}
+      </div>
+    </details>
+  ))}
+</div>

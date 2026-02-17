@@ -1,0 +1,22 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import ToolCard from '../components/ToolCard.astro';
+import { loadTools } from '../lib/content-loader';
+
+const { meta, hero, tools } = loadTools();
+---
+
+<BaseLayout title={meta.title} description={meta.description} keywords={meta.keywords}>
+  {hero && <Hero title={hero.title} subtitle={hero.subtitle} />}
+
+  <section class="py-16 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-6xl mx-auto">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {tools.map(tool => (
+          <ToolCard tool={tool} />
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

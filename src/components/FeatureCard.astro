@@ -1,0 +1,24 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  icon?: string;
+}
+
+const { title, description, icon } = Astro.props;
+
+const iconMap: Record<string, string> = {
+  eye: '&#128065;',
+  shield: '&#128737;',
+  cpu: '&#9881;',
+  zap: '&#9889;',
+};
+
+const iconHtml = icon && iconMap[icon] ? iconMap[icon] : '&#9670;';
+---
+
+<div class="bg-stl-surface border border-stl-border rounded-lg p-6 hover:border-stl-accent/50 transition-colors">
+  <div class="text-2xl mb-3" set:html={iconHtml} />
+  <h3 class="text-lg font-semibold text-stl-text mb-2">{title}</h3>
+  <p class="text-stl-muted text-sm leading-relaxed">{description}</p>
+</div>

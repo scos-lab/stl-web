@@ -1,0 +1,75 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import FeatureCard from '../components/FeatureCard.astro';
+import CodeBlock from '../components/CodeBlock.astro';
+import { loadPage } from '../lib/content-loader';
+
+const { meta, hero, features, codeExamples, content } = loadPage('about.stl');
+---
+
+<BaseLayout title={meta.title} description={meta.description} keywords={meta.keywords}>
+  {hero && <Hero title={hero.title} subtitle={hero.subtitle} />}
+
+  <!-- Content Sections -->
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    {content.map(block => (
+      <section class="py-10 border-b border-stl-border/30 last:border-0">
+        <h2 class="text-2xl font-bold text-stl-text mb-4">{block.title}</h2>
+        <p class="text-stl-muted leading-relaxed">{block.description}</p>
+        {block.href && (
+          <a href={block.href} target="_blank" rel="noopener" class="inline-block mt-3 text-stl-accent hover:underline text-sm">
+            Learn more &rarr;
+          </a>
+        )}
+      </section>
+    ))}
+
+    <!-- Code Example -->
+    {codeExamples.length > 0 && (
+      <section class="py-10">
+        {codeExamples.map(ex => (
+          <CodeBlock code={ex.code} language={ex.language} title={ex.title} />
+        ))}
+      </section>
+    )}
+
+    <!-- Anchor Types Grid -->
+    {features.length > 0 && (
+      <section class="py-10">
+        <h2 class="text-2xl font-bold text-stl-text mb-6">Anchor Types</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {features.map(f => (
+            <FeatureCard title={f.title} description={f.description} />
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- Format Comparison Table -->
+    <section class="py-10">
+      <h2 class="text-2xl font-bold text-stl-text mb-6">Format Comparison</h2>
+      <div class="overflow-x-auto">
+        <table class="w-full border-collapse text-sm">
+          <thead>
+            <tr>
+              <th class="text-left p-3 border-b border-stl-border text-stl-muted text-xs uppercase">Format</th>
+              <th class="text-center p-3 border-b border-stl-border text-stl-muted text-xs uppercase">Machine</th>
+              <th class="text-center p-3 border-b border-stl-border text-stl-muted text-xs uppercase">Human</th>
+              <th class="text-center p-3 border-b border-stl-border text-stl-muted text-xs uppercase">LLM</th>
+              <th class="text-center p-3 border-b border-stl-border text-stl-muted text-xs uppercase">Semantic</th>
+              <th class="text-center p-3 border-b border-stl-border text-stl-muted text-xs uppercase">Provenance</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b border-stl-border/50"><td class="p-3 text-stl-text">HTML</td><td class="p-3 text-center text-stl-muted">Partial</td><td class="p-3 text-center text-stl-green">Rendered</td><td class="p-3 text-center text-red-400">Poor</td><td class="p-3 text-center text-red-400">No</td><td class="p-3 text-center text-red-400">No</td></tr>
+            <tr class="border-b border-stl-border/50"><td class="p-3 text-stl-text">JSON</td><td class="p-3 text-center text-stl-green">Strong</td><td class="p-3 text-center text-red-400">Poor</td><td class="p-3 text-center text-stl-muted">Medium</td><td class="p-3 text-center text-red-400">No</td><td class="p-3 text-center text-red-400">No</td></tr>
+            <tr class="border-b border-stl-border/50"><td class="p-3 text-stl-text">Markdown</td><td class="p-3 text-center text-red-400">Weak</td><td class="p-3 text-center text-stl-green">Strong</td><td class="p-3 text-center text-stl-green">Strong</td><td class="p-3 text-center text-red-400">No</td><td class="p-3 text-center text-red-400">No</td></tr>
+            <tr class="border-b border-stl-border/50"><td class="p-3 text-stl-text">RDF/OWL</td><td class="p-3 text-center text-stl-green">Strong</td><td class="p-3 text-center text-red-400">Poor</td><td class="p-3 text-center text-red-400">Poor</td><td class="p-3 text-center text-stl-green">Strong</td><td class="p-3 text-center text-stl-muted">Ext.</td></tr>
+            <tr class="bg-stl-accent/5"><td class="p-3 text-stl-accent font-semibold">STL</td><td class="p-3 text-center text-stl-green">Strong</td><td class="p-3 text-center text-stl-green">Strong</td><td class="p-3 text-center text-stl-green">Strong</td><td class="p-3 text-center text-stl-green">Native</td><td class="p-3 text-center text-stl-green">Native</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+</BaseLayout>

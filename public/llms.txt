@@ -1,0 +1,30 @@
+# STL — Semantic Tension Language
+
+> For structured semantic content, see: /.well-known/site.stl
+
+## About
+STL (Semantic Tension Language) is a calculable, universal standard for structuring knowledge through directional semantic relations. It is human-readable, machine-executable, and LLM-native.
+
+## Core Syntax
+[Source] -> [Target] ::mod(confidence=0.9, rule="causal", source="reference")
+
+## Key Resources
+- Specification: https://github.com/scos-lab/semantic-tension-language
+- Parser & Tools: https://github.com/scos-lab/STL-TOOLS (stl_parser v1.7.0, 530 tests)
+- This Website: https://github.com/scos-lab/stl-web
+
+## Tools
+- stl_parser: Python parser (pip install stl-parser) — parse, validate, serialize, query, diff, stream
+- CLI: stl validate/convert/analyze/build/query/diff/clean
+- MCP: validate_stl, parse_stl, analyze_stl, validate_stl_file
+- Schemas: TCM, Scientific, Causal, Historical, Medical, Legal
+
+## Pages
+- /about — STL language overview and design philosophy
+- /tools — Complete tooling ecosystem
+- /spec — Specification documents
+- /aso — AI Search Optimization concept
+- /demo — Interactive STL editor
+
+## AI-Native
+This website is built with STL. All content is available as .stl files at /content/*.stl for direct AI consumption. See /.well-known/site.stl for the site manifest.

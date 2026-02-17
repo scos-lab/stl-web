@@ -1,0 +1,115 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+---
+
+<BaseLayout title="STL Demo — Try It Live" description="Interactive STL editor. Write, validate, and explore Semantic Tension Language in your browser.">
+  <Hero title="Try STL Live" subtitle="Write STL statements and see them parsed in real-time. No installation needed." />
+
+  <section class="py-16 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Editor -->
+        <div>
+          <label for="stl-input" class="block text-xs text-stl-muted uppercase tracking-wide mb-2">Input STL</label>
+          <textarea
+            id="stl-input"
+            class="w-full h-64 bg-stl-surface border border-stl-border rounded-lg p-4 text-stl-text font-mono text-sm resize-none focus:border-stl-accent focus:outline-none"
+            placeholder="[Einstein] -> [Theory_Relativity] ::mod(confidence=0.99, rule=&quot;logical&quot;)"
+          >[Einstein] -> [Theory_Relativity] ::mod(
+  rule="logical",
+  confidence=0.99,
+  domain="physics"
+)
+
+[Theory_Relativity] -> [Prediction_TimeDilation] ::mod(
+  rule="logical",
+  confidence=0.98,
+  source="doi:10.1002/andp.19053221004"
+)</textarea>
+          <button
+            id="parse-btn"
+            class="mt-3 bg-stl-accent text-stl-bg font-semibold px-4 py-2 rounded-lg hover:bg-stl-accent2 transition-colors text-sm"
+          >
+            Parse STL
+          </button>
+        </div>
+
+        <!-- Output -->
+        <div>
+          <label class="block text-xs text-stl-muted uppercase tracking-wide mb-2">Parsed Output</label>
+          <pre id="stl-output" class="w-full h-64 bg-stl-surface border border-stl-border rounded-lg p-4 text-sm font-mono overflow-auto text-stl-green">Click "Parse STL" to see the result...</pre>
+        </div>
+      </div>
+
+      <p class="text-stl-muted text-xs mt-6 text-center">
+        This demo uses a lightweight client-side parser. For full validation, use
+        <a href="/tools" class="text-stl-accent hover:underline">stl_parser</a> (Python) or the
+        <a href="/tools" class="text-stl-accent hover:underline">MCP tools</a>.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  // Lightweight client-side STL parser (minimal subset)
+  function parseSTLClient(text: string) {
+    const lines = text.split('\n');
+    const statements: any[] = [];
+    const joined: string[] = [];
+
+    for (const line of lines) {
+      const trimmed = line.trim();
+      if (!trimmed || trimmed.startsWith('#')) continue;
+      if (joined.length > 0 && !trimmed.startsWith('[')) {
+        joined[joined.length - 1] += ' ' + trimmed;
+      } else {
+        joined.push(trimmed);
+      }
+    }
+
+    const stmtRegex = /\[([^\]]+)\]\s*(?:->|→)\s*\[([^\]]+)\]/;
+    const modRegex = /::mod\(([^)]*(?:\([^)]*\)[^)]*)*)\)/;
+
+    for (const line of joined) {
+      const match = stmtRegex.exec(line);
+      if (!match) continue;
+
+      const mods: Record<string, any> = {};
+      const modMatch = modRegex.exec(line);
+      if (modMatch) {
+        const kvRegex = /(\w+)\s*=\s*("[^"]*"|[\w.]+)/g;
+        let kv;
+        while ((kv = kvRegex.exec(modMatch[1])) !== null) {
+          let val: any = kv[2];
+          if (val.startsWith('"') && val.endsWith('"')) val = val.slice(1, -1);
+          else if (!isNaN(parseFloat(val))) val = parseFloat(val);
+          mods[kv[1]] = val;
+        }
+      }
+
+      statements.push({
+        source: match[1],
+        target: match[2],
+        modifiers: mods,
+      });
+    }
+
+    return { statements, count: statements.length };
+  }
+
+  const input = document.getElementById('stl-input') as HTMLTextAreaElement;
+  const output = document.getElementById('stl-output') as HTMLPreElement;
+  const btn = document.getElementById('parse-btn') as HTMLButtonElement;
+
+  btn?.addEventListener('click', () => {
+    try {
+      const result = parseSTLClient(input.value);
+      output.textContent = JSON.stringify(result, null, 2);
+      output.style.color = '#4ade80';
+    } catch (e: any) {
+      output.textContent = 'Error: ' + e.message;
+      output.style.color = '#f87171';
+    }
+  });
+</script>

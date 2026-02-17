@@ -1,0 +1,41 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import CodeBlock from '../components/CodeBlock.astro';
+import { loadPage } from '../lib/content-loader';
+
+const { meta, hero, content, codeExamples } = loadPage('spec.stl');
+---
+
+<BaseLayout title={meta.title} description={meta.description} keywords={meta.keywords}>
+  {hero && <Hero title={hero.title} subtitle={hero.subtitle} />}
+
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Spec Documents -->
+    <section class="py-10">
+      <div class="space-y-6">
+        {content.map(block => (
+          <div class="bg-stl-surface border border-stl-border rounded-lg p-6 hover:border-stl-accent/50 transition-colors">
+            <h3 class="text-lg font-semibold text-stl-text mb-2">{block.title}</h3>
+            <p class="text-stl-muted text-sm leading-relaxed mb-3">{block.description}</p>
+            {block.href && (
+              <a href={block.href} target="_blank" rel="noopener" class="text-stl-accent hover:underline text-sm">
+                View Specification &rarr;
+              </a>
+            )}
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Quick Reference -->
+    {codeExamples.length > 0 && (
+      <section class="py-10 border-t border-stl-border">
+        <h2 class="text-2xl font-bold text-stl-text mb-6">Quick Reference</h2>
+        {codeExamples.map(ex => (
+          <CodeBlock code={ex.code} language={ex.language} title={ex.title} />
+        ))}
+      </section>
+    )}
+  </div>
+</BaseLayout>

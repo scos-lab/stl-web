@@ -1,0 +1,35 @@
+---
+interface Props {
+  code: string;
+  language?: string;
+  title?: string;
+}
+
+const { code, language = 'stl', title } = Astro.props;
+
+// Simple STL syntax highlighting
+function highlightSTL(code: string): string {
+  return code
+    // Comments
+    .replace(/(#.*)/g, '<span class="stl-comment">$1</span>')
+    // Anchors [...]
+    .replace(/\[([^\]]+)\]/g, '<span class="stl-anchor">[$1]</span>')
+    // Arrows
+    .replace(/(->|→)/g, '<span class="stl-arrow">$1</span>')
+    // ::mod
+    .replace(/(::mod)/g, '<span class="stl-mod">$1</span>')
+    // Keys before =
+    .replace(/(\w+)=/g, '<span class="stl-key">$1</span>=')
+    // Quoted strings
+    .replace(/"([^"]*)"/g, '"<span class="stl-value">$1</span>"');
+}
+
+const highlighted = language === 'stl' ? highlightSTL(code) : code;
+---
+
+<div class="my-6">
+  {title && (
+    <div class="text-xs text-stl-muted font-mono mb-1 px-1">{title}</div>
+  )}
+  <pre class="bg-stl-surface border border-stl-border rounded-lg p-4 overflow-x-auto"><code class="stl-code text-sm font-mono leading-relaxed" set:html={highlighted} /></pre>
+</div>

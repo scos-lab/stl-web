@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-stl-bg text-stl-text font-sans;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-semibold;
+  }
+
+  code {
+    @apply font-mono;
+  }
+}
+
+/* STL syntax highlighting (simple) */
+.stl-code .stl-anchor {
+  color: #38bdf8; /* accent */
+}
+
+.stl-code .stl-arrow {
+  color: #4ade80; /* green */
+}
+
+.stl-code .stl-mod {
+  color: #818cf8; /* accent2 */
+}
+
+.stl-code .stl-key {
+  color: #fb923c; /* orange */
+}
+
+.stl-code .stl-value {
+  color: #a5f3fc; /* cyan light */
+}
+
+.stl-code .stl-comment {
+  color: #64748b; /* muted dark */
+}

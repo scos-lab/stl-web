@@ -1,0 +1,30 @@
+---
+import { loadNav } from '../lib/content-loader';
+const { footerLinks } = loadNav();
+---
+
+<footer class="border-t border-stl-border mt-16 py-8">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="text-stl-muted text-sm">
+        Built with <span class="text-stl-accent font-mono">[STL]</span> &mdash; This site is AI-native.
+        <a href="/.well-known/site.stl" class="text-stl-accent hover:underline ml-1">site.stl</a>
+      </div>
+      <div class="flex items-center gap-4">
+        {footerLinks.map(link => (
+          <a
+            href={link.href}
+            target="_blank"
+            rel="noopener"
+            class="text-stl-muted hover:text-stl-text transition-colors text-sm"
+          >
+            {link.label}
+          </a>
+        ))}
+      </div>
+    </div>
+    <div class="mt-4 text-center text-stl-muted text-xs">
+      &copy; 2026 scos-lab. Open source under MIT License.
+    </div>
+  </div>
+</footer>

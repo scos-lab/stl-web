@@ -1,0 +1,61 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import ComparisonTable from '../components/ComparisonTable.astro';
+import LevelDiagram from '../components/LevelDiagram.astro';
+import FAQ from '../components/FAQ.astro';
+import { loadASO } from '../lib/content-loader';
+
+const { meta, hero, content, faq, compRows, levels } = loadASO();
+---
+
+<BaseLayout title={meta.title} description={meta.description} keywords={meta.keywords}>
+  {hero && <Hero title={hero.title} subtitle={hero.subtitle} />}
+
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- The Shift -->
+    {content.length > 0 && (
+      <section class="py-10">
+        <h2 class="text-2xl font-bold text-stl-text mb-4">{content[0].title}</h2>
+        <p class="text-stl-muted leading-relaxed">{content[0].description}</p>
+      </section>
+    )}
+
+    <!-- SEO vs ASO Comparison -->
+    {compRows.length > 0 && (
+      <section class="py-10 border-t border-stl-border/30">
+        <h2 class="text-2xl font-bold text-stl-text mb-6">SEO vs ASO</h2>
+        <ComparisonTable rows={compRows} />
+      </section>
+    )}
+
+    <!-- Web Readability Levels -->
+    {levels.length > 0 && (
+      <section class="py-10 border-t border-stl-border/30">
+        <h2 class="text-2xl font-bold text-stl-text mb-2">
+          {content.length > 1 ? content[1].title : 'Web Readability Levels'}
+        </h2>
+        {content.length > 1 && (
+          <p class="text-stl-muted mb-6">{content[1].description}</p>
+        )}
+        <LevelDiagram levels={levels} />
+      </section>
+    )}
+
+    <!-- Why STL -->
+    {content.length > 2 && (
+      <section class="py-10 border-t border-stl-border/30">
+        <h2 class="text-2xl font-bold text-stl-text mb-4">{content[2].title}</h2>
+        <p class="text-stl-muted leading-relaxed">{content[2].description}</p>
+      </section>
+    )}
+
+    <!-- FAQ -->
+    {faq.length > 0 && (
+      <section class="py-10 border-t border-stl-border/30">
+        <h2 class="text-2xl font-bold text-stl-text mb-6">FAQ</h2>
+        <FAQ items={faq} />
+      </section>
+    )}
+  </div>
+</BaseLayout>

@@ -1,0 +1,70 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import FeatureCard from '../components/FeatureCard.astro';
+import CodeBlock from '../components/CodeBlock.astro';
+import { loadPage } from '../lib/content-loader';
+
+const page = loadPage('homepage.stl');
+const { meta, hero, features, codeExamples } = page;
+
+// Extract CTA section
+const ctaStmt = page.doc.statements.find(s => s.target.namespace === 'CTA');
+const cta = ctaStmt ? {
+  title: ctaStmt.modifiers.title as string,
+  description: ctaStmt.modifiers.description as string,
+  cta_text: ctaStmt.modifiers.cta_text as string,
+  cta_href: ctaStmt.modifiers.cta_href as string,
+} : null;
+---
+
+<BaseLayout title={meta.title} description={meta.description} keywords={meta.keywords}>
+  {hero && <Hero title={hero.title} subtitle={hero.subtitle} cta_text={hero.cta_text} cta_href={hero.cta_href} />}
+
+  <!-- Features Grid -->
+  <section class="py-16 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-6xl mx-auto">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {features.map(f => (
+          <FeatureCard title={f.title} description={f.description} icon={f.icon} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Code Examples -->
+  <section class="py-16 px-4 sm:px-6 lg:px-8 bg-stl-surface/30">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="text-2xl font-bold text-stl-text mb-8 text-center">See STL in Action</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {codeExamples.map(ex => (
+          <CodeBlock code={ex.code} language={ex.language} title={ex.title} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  {cta && (
+    <section class="py-20 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-2xl mx-auto text-center">
+        <h2 class="text-3xl font-bold text-stl-text mb-4">{cta.title}</h2>
+        <p class="text-stl-muted mb-8">{cta.description}</p>
+        <a href={cta.cta_href} class="inline-block bg-stl-accent text-stl-bg font-semibold px-6 py-3 rounded-lg hover:bg-stl-accent2 transition-colors">
+          {cta.cta_text}
+        </a>
+      </div>
+    </section>
+  )}
+
+  <!-- AI-Native Badge -->
+  <section class="py-8 px-4 sm:px-6 lg:px-8 border-t border-stl-border">
+    <div class="max-w-4xl mx-auto text-center">
+      <p class="text-stl-muted text-sm">
+        This website is <span class="text-stl-accent font-semibold">AI-native</span>.
+        All content is authored in <span class="font-mono text-stl-accent">.stl</span> files and served directly to AI agents at
+        <a href="/.well-known/site.stl" class="text-stl-accent hover:underline font-mono">/.well-known/site.stl</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>
