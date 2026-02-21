@@ -26,5 +26,42 @@ STL (Semantic Tension Language) is a calculable, universal standard for structur
 - /aso — AI Search Optimization concept
 - /demo — Interactive STL editor
 
+## Documentation (35 pages)
+- /docs — Documentation hub
+- /docs/getting-started/installation — Install stl-parser
+- /docs/getting-started/quickstart — Parse, build, validate first STL
+- /docs/getting-started/key-concepts — Anchors, paths, modifiers, tension-path model
+- /docs/tutorials/01-parsing — Parse STL text and files
+- /docs/tutorials/02-building — Build statements programmatically
+- /docs/tutorials/03-schema-validation — Validate against domain schemas
+- /docs/tutorials/04-llm-pipeline — Clean and repair LLM output
+- /docs/tutorials/05-querying — Query, filter, select statements
+- /docs/tutorials/06-streaming-io — Read and write STL streams
+- /docs/tutorials/07-diff-patch — Compare and patch documents
+- /docs/tutorials/08-cli-tools — Command-line workflows
+- /docs/guides/custom-schemas — Create domain-specific schemas
+- /docs/guides/llm-integration — Use STL with ChatGPT, Claude, LLMs
+- /docs/guides/knowledge-graph-pipeline — Build end-to-end knowledge graphs
+- /docs/guides/event-logging — Structured event logging with STL
+- /docs/guides/confidence-decay — Manage knowledge freshness over time
+- /docs/reference/stl-syntax — One-page syntax quick reference
+- /docs/reference/modifiers — All 30+ modifier fields
+- /docs/reference/anchor-types — 9 canonical anchor types
+- /docs/reference/cli — All 10 CLI commands
+- /docs/reference/error-codes — E001-E969, W001-W099
+- /docs/reference/api/parser — Parser API
+- /docs/reference/api/models — Data models (Anchor, Statement, ParseResult)
+- /docs/reference/api/builder — Fluent builder API
+- /docs/reference/api/schema — Schema validation API
+- /docs/reference/api/llm — LLM pipeline API
+- /docs/reference/api/emitter — Event emitter API
+- /docs/reference/api/query — Query and filter API
+- /docs/reference/api/diff — Diff and patch API
+- /docs/reference/api/reader — Streaming reader API
+- /docs/reference/api/decay — Confidence decay API
+- /docs/reference/api/serializer — Serialization API (JSON, RDF, STL)
+- /docs/reference/api/graph — Graph analysis API
+- /docs/schemas/README — Domain schema ecosystem overview
+
 ## AI-Native
-This website is built with STL. All content is available as .stl files at /content/*.stl for direct AI consumption. See /.well-known/site.stl for the site manifest.
+This website is built with STL. All content is available as .stl files at /content/*.stl for direct AI consumption. See /.well-known/site.stl for the site manifest. Sitemap at /sitemap-index.xml.

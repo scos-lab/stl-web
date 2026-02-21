@@ -17,8 +17,8 @@ const { title, currentPath } = Astro.props;
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{title} — STL Documentation</title>
-  <meta name="description" content={`${title} — STL Documentation`} />
+  <title>{title === 'STL Documentation' ? title : `${title} — STL Docs`}</title>
+  <meta name="description" content={`${title} — STL documentation for Semantic Tension Language`} />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <meta name="ai-manifest" content="/.well-known/site.stl" />
 </head>
