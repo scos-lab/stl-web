@@ -1,0 +1,28 @@
+---
+import { getCollection, render } from 'astro:content';
+import DocsLayout from '../../layouts/DocsLayout.astro';
+
+export async function getStaticPaths() {
+  const docs = await getCollection('docs');
+  return docs
+    .filter(entry => entry.id !== 'index')
+    .map(entry => ({
+      params: { slug: entry.id },
+      props: { entry },
+    }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+
+// Extract title from first H1 in the markdown body
+const bodyLines = entry.body?.split('\n') || [];
+const h1Line = bodyLines.find(l => l.startsWith('# '));
+const title = h1Line ? h1Line.replace(/^#\s+/, '') : entry.id;
+---
+
+<DocsLayout title={title} currentPath={`/docs/${entry.id}`}>
+  <article class="prose-stl">
+    <Content />
+  </article>
+</DocsLayout>

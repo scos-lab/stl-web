@@ -1,0 +1,91 @@
+---
+import { loadDocsNav } from '../lib/content-loader';
+
+interface Props {
+  currentPath: string;
+}
+
+const { currentPath } = Astro.props;
+const sections = loadDocsNav();
+---
+
+<!-- Mobile sidebar toggle -->
+<button
+  id="docs-sidebar-toggle"
+  class="lg:hidden fixed bottom-4 right-4 z-50 bg-stl-accent text-stl-bg p-3 rounded-full shadow-lg hover:bg-stl-accent2 transition-colors"
+  aria-label="Toggle docs sidebar"
+>
+  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+  </svg>
+</button>
+
+<!-- Backdrop -->
+<div id="docs-sidebar-backdrop" class="hidden lg:hidden fixed inset-0 bg-black/50 z-40"></div>
+
+<!-- Sidebar -->
+<aside
+  id="docs-sidebar"
+  class="hidden lg:block fixed lg:sticky top-16 left-0 z-40 lg:z-auto w-72 h-[calc(100vh-4rem)] overflow-y-auto bg-stl-bg lg:bg-transparent border-r border-stl-border lg:border-r-0 p-4"
+>
+  <a
+    href="/docs"
+    class:list={[
+      'block mb-4 text-sm font-semibold',
+      currentPath === '/docs' ? 'text-stl-accent' : 'text-stl-muted hover:text-stl-text',
+    ]}
+  >
+    Documentation Home
+  </a>
+
+  {sections.map(section => (
+    <div class="mb-4">
+      <h4 class="text-xs font-semibold uppercase tracking-wider text-stl-muted mb-2">
+        {section.label}
+      </h4>
+      <ul class="space-y-0.5">
+        {section.links.map(link => (
+          <li>
+            <a
+              href={link.href}
+              class:list={[
+                'block py-1 px-2 text-sm rounded transition-colors',
+                currentPath === link.href
+                  ? 'text-stl-accent bg-stl-accent/10 font-medium'
+                  : 'text-stl-muted hover:text-stl-text hover:bg-stl-surface',
+              ]}
+            >
+              {link.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  ))}
+</aside>
+
+<script>
+  const toggle = document.getElementById('docs-sidebar-toggle');
+  const sidebar = document.getElementById('docs-sidebar');
+  const backdrop = document.getElementById('docs-sidebar-backdrop');
+
+  function openSidebar() {
+    sidebar?.classList.remove('hidden');
+    backdrop?.classList.remove('hidden');
+  }
+
+  function closeSidebar() {
+    sidebar?.classList.add('hidden');
+    backdrop?.classList.add('hidden');
+  }
+
+  toggle?.addEventListener('click', () => {
+    if (sidebar?.classList.contains('hidden')) {
+      openSidebar();
+    } else {
+      closeSidebar();
+    }
+  });
+
+  backdrop?.addEventListener('click', closeSidebar);
+</script>

@@ -1,0 +1,23 @@
+---
+import { getCollection, render } from 'astro:content';
+import DocsLayout from '../../layouts/DocsLayout.astro';
+
+const docs = await getCollection('docs');
+const indexEntry = docs.find(e => e.id === 'index');
+
+let Content;
+let title = 'STL Documentation';
+if (indexEntry) {
+  const rendered = await render(indexEntry);
+  Content = rendered.Content;
+  const bodyLines = indexEntry.body?.split('\n') || [];
+  const h1Line = bodyLines.find(l => l.startsWith('# '));
+  if (h1Line) title = h1Line.replace(/^#\s+/, '');
+}
+---
+
+<DocsLayout title={title} currentPath="/docs">
+  <article class="prose-stl">
+    {Content && <Content />}
+  </article>
+</DocsLayout>

@@ -18,6 +18,102 @@
   }
 }
 
+/* Prose styling for markdown docs */
+@layer components {
+  .prose-stl {
+    @apply text-stl-text leading-relaxed;
+    max-width: 80ch;
+  }
+
+  .prose-stl h1 {
+    @apply text-3xl font-bold text-stl-text mt-8 mb-4 pb-2 border-b border-stl-border;
+  }
+
+  .prose-stl h1:first-child {
+    @apply mt-0;
+  }
+
+  .prose-stl h2 {
+    @apply text-2xl font-semibold text-stl-text mt-8 mb-3;
+  }
+
+  .prose-stl h3 {
+    @apply text-xl font-semibold text-stl-text mt-6 mb-2;
+  }
+
+  .prose-stl h4 {
+    @apply text-lg font-medium text-stl-muted mt-4 mb-2;
+  }
+
+  .prose-stl p {
+    @apply my-3;
+  }
+
+  .prose-stl a {
+    @apply text-stl-accent hover:text-stl-accent2 underline underline-offset-2 transition-colors;
+  }
+
+  .prose-stl strong {
+    @apply font-semibold text-stl-text;
+  }
+
+  .prose-stl code:not(pre code) {
+    @apply font-mono text-sm bg-stl-surface px-1.5 py-0.5 rounded text-stl-accent;
+  }
+
+  .prose-stl pre {
+    @apply bg-stl-surface border border-stl-border rounded-lg p-4 my-4 overflow-x-auto text-sm;
+  }
+
+  .prose-stl pre code {
+    @apply bg-transparent p-0 text-sm;
+  }
+
+  .prose-stl table {
+    @apply w-full my-4 text-sm;
+  }
+
+  .prose-stl thead {
+    @apply border-b border-stl-border;
+  }
+
+  .prose-stl th {
+    @apply text-left py-2 px-3 font-semibold text-stl-muted;
+  }
+
+  .prose-stl td {
+    @apply py-2 px-3 border-b border-stl-border/50;
+  }
+
+  .prose-stl ul {
+    @apply my-3 pl-6 list-disc;
+  }
+
+  .prose-stl ol {
+    @apply my-3 pl-6 list-decimal;
+  }
+
+  .prose-stl li {
+    @apply my-1;
+  }
+
+  .prose-stl li > ul, .prose-stl li > ol {
+    @apply my-1;
+  }
+
+  .prose-stl blockquote {
+    @apply border-l-4 border-stl-accent/50 pl-4 my-4 text-stl-muted italic;
+  }
+
+  .prose-stl hr {
+    @apply my-8 border-stl-border;
+  }
+
+  .prose-stl img {
+    @apply rounded-lg my-4;
+  }
+}
+
 /* STL syntax highlighting (simple) */
 .stl-code .stl-anchor {
   color: #38bdf8; /* accent */

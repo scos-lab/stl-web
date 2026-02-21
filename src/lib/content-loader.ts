@@ -232,6 +232,46 @@ export function loadTools() {
   return { meta, hero, tools };
 }
 
+export interface DocNavLink {
+  label: string;
+  href: string;
+  order: number;
+}
+
+export interface DocNavSection {
+  label: string;
+  order: number;
+  links: DocNavLink[];
+}
+
+export function loadDocsNav(): DocNavSection[] {
+  const doc = loadSTLFile('docs-nav.stl');
+
+  // Each source namespace like "DocsNav:GettingStarted" defines a section.
+  // The statement pointing to "Section:*" carries the section label + order.
+  // All other statements in that group are links.
+  const sectionSources = [...new Set(doc.statements.map(s => s.source.raw))];
+
+  const sections: DocNavSection[] = sectionSources.map(src => {
+    const stmts = doc.statements.filter(s => s.source.raw === src);
+    const sectionStmt = stmts.find(s => s.target.namespace === 'Section');
+    if (!sectionStmt) return null;
+
+    const linkStmts = sortByOrder(stmts.filter(s => s.target.namespace === 'Link'));
+    return {
+      label: getMod(sectionStmt, 'label', ''),
+      order: getMod(sectionStmt, 'order', 999),
+      links: linkStmts.map(s => ({
+        label: getMod(s, 'label', s.target.name),
+        href: getMod(s, 'href', '/docs'),
+        order: getMod(s, 'order', 999),
+      })),
+    };
+  }).filter(Boolean) as DocNavSection[];
+
+  return sections.sort((a, b) => a.order - b.order);
+}
+
 export function loadASO() {
   const doc = loadSTLFile('aso.stl');
   const meta = extractMeta(doc);
