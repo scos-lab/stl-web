@@ -4,7 +4,5 @@ dist/
 .env
 *.log
 
-# Generated at build time by copy-docs.mjs
-src/content/docs/
 
 .vercel

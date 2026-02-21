@@ -1,6 +1,7 @@
 // Copy documentation .md files from semantic-tension-language/docs/ to src/content/docs/
 // Only copies the 5 user-facing directories + index.md (excludes internal reports, security docs, stlc specs)
-import { cpSync, mkdirSync, copyFileSync, readdirSync, statSync } from 'fs';
+// Skips gracefully if source repo is not available (e.g. on Vercel where docs are committed directly)
+import { cpSync, mkdirSync, copyFileSync, readdirSync, statSync, existsSync } from 'fs';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
 
@@ -8,6 +9,11 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = resolve(__dirname, '..');
 const docsSource = resolve(root, '..', 'semantic-tension-language', 'docs');
 const docsDest = resolve(root, 'src', 'content', 'docs');
+
+if (!existsSync(docsSource)) {
+  console.log('Source docs not found (expected on Vercel). Using committed docs.');
+  process.exit(0);
+}
 
 // Clean and recreate destination
 mkdirSync(docsDest, { recursive: true });
