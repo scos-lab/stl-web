@@ -1,5 +1,7 @@
 User-agent: *
 Allow: /
 
+Sitemap: https://stl-lang.org/sitemap-index.xml
+
 # AI Agents: See /.well-known/site.stl for structured semantic content
 # This site is AI-native — all content is available in STL format at /content/*.stl

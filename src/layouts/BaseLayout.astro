@@ -10,6 +10,7 @@ interface Props {
 }
 
 const { title, description = 'Semantic Tension Language — a calculable, universal standard for structuring knowledge.', keywords } = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, 'https://stl-lang.org').href;
 ---
 
 <!DOCTYPE html>
@@ -20,12 +21,35 @@ const { title, description = 'Semantic Tension Language — a calculable, univer
   <title>{title}</title>
   <meta name="description" content={description} />
   {keywords && <meta name="keywords" content={keywords} />}
+  <link rel="canonical" href={canonicalURL} />
+  <!-- Open Graph -->
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
   <meta property="og:type" content="website" />
+  <meta property="og:url" content={canonicalURL} />
+  <meta property="og:site_name" content="STL — Semantic Tension Language" />
+  <meta property="og:image" content="https://stl-lang.org/og-image.png" />
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content="https://stl-lang.org/og-image.png" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <!-- AI Agent hint -->
   <meta name="ai-manifest" content="/.well-known/site.stl" />
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "STL — Semantic Tension Language",
+    "url": "https://stl-lang.org",
+    "description": "A calculable, universal standard for structuring knowledge through directional semantic relations.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "scos-lab",
+      "url": "https://github.com/scos-lab"
+    }
+  })} />
 </head>
 <body class="min-h-screen flex flex-col">
   <Header />
