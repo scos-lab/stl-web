@@ -73,6 +73,51 @@
   freshness="2026-02-17"
 )
 
+# --- Layer 2b: Documentation ---
+
+[Site:STL_Ecosystem] -> [Content:Docs] ::mod(
+  path="/docs",
+  type="documentation_hub",
+  topic="Complete STL documentation: getting-started, tutorials, guides, API reference, schemas",
+  pages=35,
+  freshness="2026-02-21"
+)
+
+[Content:Docs] -> [Section:GettingStarted] ::mod(
+  path="/docs/getting-started/installation",
+  type="documentation",
+  topic="Installation, Quickstart, Key Concepts",
+  pages=3
+)
+
+[Content:Docs] -> [Section:Tutorials] ::mod(
+  path="/docs/tutorials/01-parsing",
+  type="documentation",
+  topic="8 step-by-step tutorials: parsing, building, schema validation, LLM pipeline, querying, streaming I/O, diff/patch, CLI",
+  pages=8
+)
+
+[Content:Docs] -> [Section:Guides] ::mod(
+  path="/docs/guides/llm-integration",
+  type="documentation",
+  topic="How-to guides: custom schemas, LLM integration, knowledge graphs, event logging, confidence decay",
+  pages=5
+)
+
+[Content:Docs] -> [Section:Reference] ::mod(
+  path="/docs/reference/stl-syntax",
+  type="documentation",
+  topic="API reference (12 modules), CLI reference, modifier reference, anchor types, error codes, STL syntax card",
+  pages=17
+)
+
+[Content:Docs] -> [Section:Schemas] ::mod(
+  path="/docs/schemas/README",
+  type="documentation",
+  topic="Domain schema ecosystem: TCM, scientific, causal, historical, medical, legal",
+  pages=1
+)
+
 # --- Layer 3: Agent Policy ---
 
 [Agent:Behavior] -> [Policy:Indexing] ::mod(

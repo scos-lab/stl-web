@@ -33,5 +33,9 @@ const { title, description = 'Semantic Tension Language — a calculable, univer
     <slot />
   </main>
   <Footer />
+  <script>
+    import { inject } from '@vercel/analytics';
+    inject();
+  </script>
 </body>
 </html>
