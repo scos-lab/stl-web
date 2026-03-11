@@ -23,8 +23,30 @@ const { footerLinks } = loadNav();
         ))}
       </div>
     </div>
-    <div class="mt-4 text-center text-stl-muted text-xs">
-      &copy; 2026 scos-lab. Open source under MIT License.
+    <div class="mt-4 flex flex-col items-center gap-2 text-stl-muted text-xs">
+      <div class="flex items-center gap-1">
+        <span>Contact:</span>
+        <button
+          id="copy-email"
+          class="text-stl-accent hover:underline cursor-pointer font-mono"
+          title="Click to copy"
+        >
+          contact@stl-lang.org
+        </button>
+        <span id="copy-feedback" class="text-stl-accent opacity-0 transition-opacity duration-300 ml-1">Copied!</span>
+      </div>
+      <div>&copy; 2026 scos-lab. Open source under MIT License.</div>
     </div>
   </div>
 </footer>
+
+<script>
+  document.getElementById('copy-email')?.addEventListener('click', async () => {
+    await navigator.clipboard.writeText('contact@stl-lang.org');
+    const feedback = document.getElementById('copy-feedback');
+    if (feedback) {
+      feedback.style.opacity = '1';
+      setTimeout(() => { feedback.style.opacity = '0'; }, 2000);
+    }
+  });
+</script>
