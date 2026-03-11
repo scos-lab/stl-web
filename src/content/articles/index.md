@@ -12,7 +12,7 @@
 
 | Article | Topic | Key Finding |
 |---------|-------|-------------|
-| [Context Compression for LLMs](/articles/context-compression) | LLM Memory | STL achieves **3.9x** better token efficiency than prose summarization |
+| [Context Compression for LLMs](/articles/context-compression) | LLM Memory | STL achieves **1.76x** better token efficiency than auto-compacted NL (up to 10x vs verbose prose) |
 
 ---
 
