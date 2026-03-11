@@ -6,13 +6,13 @@
 
 | Paper | Authors | Published | DOI |
 |-------|---------|-----------|-----|
-| [Semantic Tension Language (STL): A Theoretical Framework for Structured and Interpretable Knowledge Representation](stl-paper) | Wuko | Nov 2025 | [10.5281/zenodo.17585432](https://doi.org/10.5281/zenodo.17585432) |
+| [Semantic Tension Language (STL): A Theoretical Framework for Structured and Interpretable Knowledge Representation](/articles/stl-paper) | Wuko | Nov 2025 | [10.5281/zenodo.17585432](https://doi.org/10.5281/zenodo.17585432) |
 
 ## Reports
 
 | Article | Topic | Key Finding |
 |---------|-------|-------------|
-| [Context Compression for LLMs](context-compression) | LLM Memory | STL achieves **3.9x** better token efficiency than prose summarization |
+| [Context Compression for LLMs](/articles/context-compression) | LLM Memory | STL achieves **3.9x** better token efficiency than prose summarization |
 
 ---
 
