@@ -6,7 +6,13 @@ Unlike the [Documentation](/docs) which teaches you *how* to use STL, these arti
 
 ---
 
-## Published
+## Papers
+
+| Paper | Authors | Published | DOI |
+|-------|---------|-----------|-----|
+| [Semantic Tension Language (STL): A Theoretical Framework for Structured and Interpretable Knowledge Representation](stl-paper) | Wuko | Nov 2025 | [10.5281/zenodo.17585432](https://doi.org/10.5281/zenodo.17585432) |
+
+## Reports
 
 | Article | Topic | Key Finding |
 |---------|-------|-------------|

@@ -1,5 +1,9 @@
 # Articles Sidebar Navigation
 
+# Papers
+[ArticlesNav:Papers] -> [Section:Papers] ::mod(label="Papers", order=1)
+[ArticlesNav:Papers] -> [Link:STLPaper] ::mod(label="STL: Theoretical Framework (2025)", href="/articles/stl-paper", order=1)
+
 # Reports & Analysis
-[ArticlesNav:Reports] -> [Section:Reports] ::mod(label="Reports & Analysis", order=1)
+[ArticlesNav:Reports] -> [Section:Reports] ::mod(label="Reports & Analysis", order=2)
 [ArticlesNav:Reports] -> [Link:ContextCompression] ::mod(label="Context Compression for LLMs", href="/articles/context-compression", order=1)
