@@ -334,7 +334,7 @@ Summary:
    - Fix Dropdown Bug: Dropdown menu disappeared too fast on hover,
      preventing clicks. Fixed with padding bridge + delay.
    - Upload Research Paper: User wanted the founding paper (PDF from Zenodo,
-     DOI: 10.5281/zenodo.XXXXXXXX) uploaded with full text rendered as web
+     DOI: 10.5281/zenodo.17585432) uploaded with full text rendered as web
      content, PDF download link, and DOI information.
    - Knowledge Graph Recording: User wanted the paper's metadata (DOI,
      paths, URLs) recorded in the knowledge graph.
@@ -469,7 +469,7 @@ Summary:
   status="done",
   description="Research paper PDF to markdown, 23 pages, 6 sections, 25 references",
   output="articles/paper.md",
-  doi="10.5281/zenodo.XXXXXXXX",
+  doi="10.5281/zenodo.17585432",
   artifacts_cleaned="OCR ligatures"
 )
 
