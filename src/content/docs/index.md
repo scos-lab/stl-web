@@ -55,6 +55,7 @@ Step-by-step tutorials covering every capability:
 - **[Knowledge Graph Pipeline](guides/knowledge-graph-pipeline.md)** — Build end-to-end knowledge graphs
 - **[Event Logging](guides/event-logging.md)** — Use STL for structured event logging
 - **[Confidence Decay](guides/confidence-decay.md)** — Manage knowledge freshness over time
+- **[Context Compression](guides/context-compression.md)** — Use STL to compress LLM context windows (3.9× more efficient than prose)
 
 ---
 
