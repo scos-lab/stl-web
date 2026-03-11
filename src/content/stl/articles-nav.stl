@@ -1,0 +1,5 @@
+# Articles Sidebar Navigation
+
+# Reports & Analysis
+[ArticlesNav:Reports] -> [Section:Reports] ::mod(label="Reports & Analysis", order=1)
+[ArticlesNav:Reports] -> [Link:ContextCompression] ::mod(label="Context Compression for LLMs", href="/articles/context-compression", order=1)

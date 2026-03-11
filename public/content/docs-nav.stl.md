@@ -24,7 +24,6 @@
 [DocsNav:Guides] -> [Link:KnowledgeGraph] ::mod(label="Knowledge Graph Pipeline", href="/docs/guides/knowledge-graph-pipeline", order=3)
 [DocsNav:Guides] -> [Link:EventLogging] ::mod(label="Event Logging", href="/docs/guides/event-logging", order=4)
 [DocsNav:Guides] -> [Link:ConfidenceDecay] ::mod(label="Confidence Decay", href="/docs/guides/confidence-decay", order=5)
-[DocsNav:Guides] -> [Link:ContextCompression] ::mod(label="Context Compression", href="/docs/guides/context-compression", order=6)
 
 # Reference
 [DocsNav:Reference] -> [Section:Reference] ::mod(label="Reference", order=4)

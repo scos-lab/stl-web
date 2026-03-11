@@ -1,0 +1,23 @@
+---
+import { getCollection, render } from 'astro:content';
+import ArticlesLayout from '../../layouts/ArticlesLayout.astro';
+
+const articles = await getCollection('articles');
+const indexEntry = articles.find(e => e.id === 'index');
+
+let Content;
+let title = 'Articles';
+if (indexEntry) {
+  const rendered = await render(indexEntry);
+  Content = rendered.Content;
+  const bodyLines = indexEntry.body?.split('\n') || [];
+  const h1Line = bodyLines.find(l => l.startsWith('# '));
+  if (h1Line) title = h1Line.replace(/^#\s+/, '');
+}
+---
+
+<ArticlesLayout title={title} currentPath="/articles">
+  <article class="prose-stl">
+    {Content && <Content />}
+  </article>
+</ArticlesLayout>

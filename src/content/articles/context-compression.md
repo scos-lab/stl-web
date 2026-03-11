@@ -287,7 +287,7 @@ STL uniquely combines high compression with high precision and full composabilit
 ## Limitations
 
 - **Not for all content** — STL excels at structured knowledge (facts, relations, hypotheses). For emotional context or design rationale requiring prose, use a hybrid approach.
-- **Requires STL knowledge** — The compressing agent must understand STL syntax. Include the [STL Syntax reference](../reference/stl-syntax.md) in your system prompt (~2,000 tokens fixed cost).
+- **Requires STL knowledge** — The compressing agent must understand STL syntax. Include the [STL Syntax reference](/docs/reference/stl-syntax) in your system prompt (~2,000 tokens fixed cost).
 - **Human readability trade-off** — STL is less immediately readable than prose for non-technical users. For LLM-to-LLM transfer, this trade-off is favorable.
 
 ---
@@ -302,7 +302,7 @@ Natural language summarization wastes 60–75% of tokens on narrative scaffoldin
 
 ## Further Reading
 
-- [STL Syntax Reference](../reference/stl-syntax.md) — Complete syntax specification
-- [LLM Integration Guide](llm-integration.md) — Use STL with ChatGPT, Claude, and other LLMs
-- [Knowledge Graph Pipeline](knowledge-graph-pipeline.md) — Build persistent knowledge structures
-- [Querying Tutorial](../tutorials/05-querying.md) — Filter and select STL statements
+- [STL Syntax Reference](/docs/reference/stl-syntax) — Complete syntax specification
+- [LLM Integration Guide](/docs/guides/llm-integration) — Use STL with ChatGPT, Claude, and other LLMs
+- [Knowledge Graph Pipeline](/docs/guides/knowledge-graph-pipeline) — Build persistent knowledge structures
+- [Querying Tutorial](/docs/tutorials/05-querying) — Filter and select STL statements

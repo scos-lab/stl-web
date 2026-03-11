@@ -1,6 +1,15 @@
 ---
 import { loadNav } from '../lib/content-loader';
 const { mainLinks } = loadNav();
+
+// Separate "Docs" link from others — it becomes a dropdown
+const docsLink = mainLinks.find(l => l.href === '/docs');
+const otherLinks = mainLinks.filter(l => l.href !== '/docs');
+
+const dropdownItems = [
+  { label: 'Documentation', href: '/docs', description: 'Tutorials, guides & API reference' },
+  { label: 'Articles', href: '/articles', description: 'Reports, analysis & case studies' },
+];
 ---
 
 <header class="border-b border-stl-border bg-stl-bg/80 backdrop-blur-sm sticky top-0 z-50">
@@ -13,7 +22,45 @@ const { mainLinks } = loadNav();
 
       <!-- Desktop Nav -->
       <nav class="hidden md:flex items-center gap-6">
-        {mainLinks.map(link => (
+        {otherLinks.filter(l => l.order < (docsLink?.order ?? 3)).map(link => (
+          <a
+            href={link.href}
+            class="text-stl-muted hover:text-stl-text transition-colors text-sm font-medium"
+          >
+            {link.label}
+          </a>
+        ))}
+
+        {/* Docs Dropdown */}
+        <div class="relative" id="docs-dropdown">
+          <button
+            class="text-stl-muted hover:text-stl-text transition-colors text-sm font-medium flex items-center gap-1"
+            id="docs-dropdown-btn"
+            aria-expanded="false"
+            aria-haspopup="true"
+          >
+            Docs
+            <svg class="w-3.5 h-3.5 transition-transform" id="docs-dropdown-chevron" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div
+            class="hidden absolute top-full left-1/2 -translate-x-1/2 mt-2 w-64 bg-stl-bg border border-stl-border rounded-lg shadow-xl py-2"
+            id="docs-dropdown-menu"
+          >
+            {dropdownItems.map(item => (
+              <a
+                href={item.href}
+                class="block px-4 py-2.5 hover:bg-stl-surface transition-colors"
+              >
+                <span class="block text-sm font-medium text-stl-text">{item.label}</span>
+                <span class="block text-xs text-stl-muted mt-0.5">{item.description}</span>
+              </a>
+            ))}
+          </div>
+        </div>
+
+        {otherLinks.filter(l => l.order > (docsLink?.order ?? 3)).map(link => (
           <a
             href={link.href}
             class="text-stl-muted hover:text-stl-text transition-colors text-sm font-medium"
@@ -41,7 +88,27 @@ const { mainLinks } = loadNav();
 
     <!-- Mobile Nav -->
     <nav id="mobile-menu" class="hidden md:hidden pb-4">
-      {mainLinks.map(link => (
+      {otherLinks.filter(l => l.order < (docsLink?.order ?? 3)).map(link => (
+        <a
+          href={link.href}
+          class="block py-2 text-stl-muted hover:text-stl-text transition-colors text-sm font-medium"
+        >
+          {link.label}
+        </a>
+      ))}
+      {/* Mobile: show both docs links flat */}
+      <div class="py-2">
+        <span class="block text-xs font-semibold uppercase tracking-wider text-stl-muted mb-1">Docs</span>
+        {dropdownItems.map(item => (
+          <a
+            href={item.href}
+            class="block py-1.5 pl-3 text-stl-muted hover:text-stl-text transition-colors text-sm font-medium"
+          >
+            {item.label}
+          </a>
+        ))}
+      </div>
+      {otherLinks.filter(l => l.order > (docsLink?.order ?? 3)).map(link => (
         <a
           href={link.href}
           class="block py-2 text-stl-muted hover:text-stl-text transition-colors text-sm font-medium"
@@ -62,7 +129,58 @@ const { mainLinks } = loadNav();
 </header>
 
 <script>
+  // Mobile menu toggle
   const btn = document.getElementById('mobile-menu-btn');
   const menu = document.getElementById('mobile-menu');
   btn?.addEventListener('click', () => menu?.classList.toggle('hidden'));
+
+  // Desktop dropdown
+  const dropdown = document.getElementById('docs-dropdown');
+  const dropdownBtn = document.getElementById('docs-dropdown-btn');
+  const dropdownMenu = document.getElementById('docs-dropdown-menu');
+  const chevron = document.getElementById('docs-dropdown-chevron');
+
+  let isOpen = false;
+
+  function openDropdown() {
+    dropdownMenu?.classList.remove('hidden');
+    chevron?.classList.add('rotate-180');
+    dropdownBtn?.setAttribute('aria-expanded', 'true');
+    isOpen = true;
+  }
+
+  function closeDropdown() {
+    dropdownMenu?.classList.add('hidden');
+    chevron?.classList.remove('rotate-180');
+    dropdownBtn?.setAttribute('aria-expanded', 'false');
+    isOpen = false;
+  }
+
+  // Toggle on click
+  dropdownBtn?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (isOpen) {
+      closeDropdown();
+    } else {
+      openDropdown();
+    }
+  });
+
+  // Close on click outside
+  document.addEventListener('click', (e) => {
+    if (isOpen && !dropdown?.contains(e.target as Node)) {
+      closeDropdown();
+    }
+  });
+
+  // Open on hover (desktop)
+  dropdown?.addEventListener('mouseenter', openDropdown);
+  dropdown?.addEventListener('mouseleave', closeDropdown);
+
+  // Close on Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && isOpen) {
+      closeDropdown();
+    }
+  });
 </script>
