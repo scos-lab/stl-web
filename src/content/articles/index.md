@@ -13,6 +13,7 @@
 | Article | Topic | Key Finding |
 |---------|-------|-------------|
 | [Context Compression for LLMs](/articles/context-compression) | LLM Memory | STL achieves **1.76x** better token efficiency than auto-compacted NL (up to 10x vs verbose prose) |
+| [STL Retrieval Robustness in Long-Context LLMs](/articles/stl-retrieval-robustness) | Long-Context Retrieval | STL achieves **+2.8%** higher retrieval accuracy than NL across 1,507 trials; **+50%** on precise numerical data (N06: NL=0.50, STL=1.00) |
 
 ---
 
