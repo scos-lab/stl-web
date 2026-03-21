@@ -7,3 +7,5 @@
 # Reports & Analysis
 [ArticlesNav:Reports] -> [Section:Reports] ::mod(label="Reports & Analysis", order=2)
 [ArticlesNav:Reports] -> [Link:ContextCompression] ::mod(label="Context Compression for LLMs", href="/articles/context-compression", order=1)
+[ArticlesNav:Reports] -> [Link:RetrievalRobustness] ::mod(label="STL Retrieval Robustness", href="/articles/stl-retrieval-robustness", order=2)
+[ArticlesNav:Reports] -> [Link:LLMCodeGeneration] ::mod(label="STL for LLM Code Generation", href="/articles/stl-llm-code-generation", order=3)

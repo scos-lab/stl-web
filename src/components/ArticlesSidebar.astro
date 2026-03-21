@@ -5,7 +5,8 @@ interface Props {
   currentPath: string;
 }
 
-const { currentPath } = Astro.props;
+const { currentPath: rawPath } = Astro.props;
+const currentPath = rawPath.replace(/\/+$/, '');
 const sections = loadArticlesNav();
 ---
 
